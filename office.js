@@ -1,20 +1,19 @@
 my_status = "";
 myresults = [];
-//https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/assortment-of-colorful-ripe-tropical-fruits-top-royalty-free-image-995518546-1564092355.jpg
+
 function preload() {
-    pic_fruits = loadImage("fruit1.jpg");
+    pic_office = loadImage("office.jpeg");
 }
 
 function setup() {
-    canvas = createCanvas(780, 439);
-    canvas.position(385, 300);
+    canvas = createCanvas(425, 283);
+    canvas.position(540, 300);
     objectDetector = ml5.objectDetector("cocossd", modelLoaded);
 }
 
-function draw() {
-    image(pic_fruits, 0, 0, 780, 439);
+function draw() {    
+    image(pic_office , 0, 0, 425, 283);
     if (my_status != "") {
-      
         for(i = 0; i < myresults.length; i++){
           
             stroke("red");
@@ -24,21 +23,20 @@ function draw() {
             height =  myresults[i].height;
             confidence = floor(myresults[i].confidence*100) + "%";
             fill("white");
-            rect(x+5,y+10,80,25);
+            rect(x+5,y+10,100,25);
             fill("black");
             text(myresults[i].label + " " + confidence, myresults[i].x + 10, myresults[i].y +25);
-            
             noFill();
             rect(x,y, width, height);
         }
-        //objectDetector.detect(pic_fruits, gotResults);
+        //objectDetector.detect(pic_office , gotResults);
     }
 }
 
 function modelLoaded() {
     console.log("Model is loaded.");
     document.getElementById("status").innerHTML = "Status: Detecting Objects";
-    objectDetector.detect(pic_fruits, gotResults);
+    objectDetector.detect(pic_office , gotResults);
 }
 
 
